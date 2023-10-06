@@ -40,6 +40,12 @@ public class Pessoa {
         return cpf;
     }
 
+
+    @Override
+    public String toString() {
+        return "nome=" + nome + ", email=" + email + ", cpf=" + cpf + ", ";
+    }
+
     
 
     
