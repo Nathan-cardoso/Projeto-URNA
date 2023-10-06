@@ -16,5 +16,15 @@ public class Menu {
 
     }
 
+    public static void candidato(){
+
+        System.out.println("\tMenu");
+        System.out.println("1 -> cadastrar");
+        System.out.println("2 -> editar");
+        System.out.println("3 -> excluir");
+        System.out.println("4 -> listar");
+        System.out.println("5 -> sair");
+    }
+
     
  }
