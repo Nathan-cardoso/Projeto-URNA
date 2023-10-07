@@ -30,10 +30,51 @@ public class Main {
 
                 switch(navCandidato){
                     case 1:
+                    //Dados que o usuário passa para o banco.
+                    String numeroEleicao;
+                    String nome;
+                    String cpf;
+                    String email;
+
+                    input.nextLine();
+                    System.out.println("Digite o número do candidato: ");
+                    numeroEleicao = input.nextLine();
+
+                    if(!numeroEleicao.matches("\\d{5}")){
+                        System.out.println("------------------------------------------------");
+                        System.out.println("    Erro ao cadastrar o número do candidato.\n\tEra esperado 5 digitos numericos");
+                        System.out.println("------------------------------------------------");
+                        break;
+                    }
+
+                    System.out.println("Informe o nome do candidato: ");
+                    nome = input.nextLine();
+
+                    System.out.println("Informe o cpf do candidato: ");
+                    cpf = input.nextLine();
+
+                    if(!cpf.matches("\\d{11}")){
+                        System.out.println("---------------------------------------------------------------------");
+                        System.out.println("\tCPF invalido! Foi passado " + cpf.length() + " digitos, era esperado 11");
+                        System.out.println("---------------------------------------------------------------------");
+                        break;
+                    }
+
+
+
+                    System.out.println("Para finalizar, digite o emeil do candidato: ");
+                    email = input.nextLine();
+
+                    Candidato candidato = new Candidato(nome, cpf, email, numeroEleicao);
+
+                    candidato.cadastrar();
+
+                    break;
                     case 2:
                     case 3:
                     break;
                     case 4:
+                    System.out.println("\tLista de Candidatos");
                     Candidato.listar();
                     break;
                     case 5:

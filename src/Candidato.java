@@ -8,8 +8,8 @@ public class Candidato extends Pessoa {
     private int totalDevotos;
 
     
-    public Candidato(String nome, String email, String cpf, String numeroDaEleicao) {
-        super(nome, email, cpf);
+    public Candidato(String nome, String cpf, String email, String numeroDaEleicao) {
+        super(nome, cpf, email);
         this.numeroDaEleicao = numeroDaEleicao;
     }
     
@@ -27,6 +27,42 @@ public class Candidato extends Pessoa {
     public int getTotalDevotos() {
         return totalDevotos;
     }
+
+    public void cadastrar(){
+        try {
+            Connection connection = new Conexao().getConnection();
+            String query = "INSERT INTO candidato (numero_eleicao, nome, cpf, email) VALUES (?,?,?,?)";
+            PreparedStatement pst = connection.prepareStatement(query);
+
+            pst.setString(1, this.getNumeroDaEleicao());
+            pst.setString(2, this.getNome());
+            pst.setString(3, this.getCpf());
+            pst.setString(4, this.getEmail());
+
+            int validacaoCadastro = pst.executeUpdate();
+
+            if(validacaoCadastro > 0){
+
+                System.out.printf("Candidato(a) %s cadastrado com sucesso!\n", getNome());
+
+            }else{
+
+                System.out.println("Erro no cadastro do candidato");
+
+            }
+
+            pst.close();
+            connection.close();
+
+
+        } catch (java.sql.SQLException e) {
+
+            System.out.println("Erro de conexão: " + e.getMessage());
+        }
+
+    }
+
+
 
     public static void listar() {
         PreparedStatement pstmt = null;
@@ -49,7 +85,7 @@ public class Candidato extends Pessoa {
                     String email = rs.getString("email"); 
                     
                     // cria um objeto Candidato com os dados obtidos
-                    Candidato candidato = new Candidato(nome,email,cpf,numeroEleicao); 
+                    Candidato candidato = new Candidato(nome,cpf,email,numeroEleicao); 
 
                     System.out.println("-------------------");
                     System.out.println(candidato);
@@ -69,7 +105,7 @@ public class Candidato extends Pessoa {
 
     @Override
     public String toString() {
-        return super.toString() + "\nNumero da eleicao: " + numeroDaEleicao + "\nTotal de votos:" + totalDevotos ;
+        return super.toString() + "\nNumero da eleicao: " + numeroDaEleicao;
     }
     
     

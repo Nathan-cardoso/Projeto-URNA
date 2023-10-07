@@ -4,10 +4,10 @@ public class Pessoa {
     private String cpf;
 
 
-    public Pessoa(String nome, String email, String cpf) {
+    public Pessoa(String nome, String cpf, String email) {
         this.nome = nome;
-        this.email = email;
         this.cpf = cpf;
+        this.email = email;
     }
 
 
@@ -41,9 +41,8 @@ public class Pessoa {
     }
 
 
-    @Override
     public String toString() {
-        return "Nome: " + nome + "\nEmail: " + email + "\nCPF: " + cpf;
+        return "Nome: " + nome + "\nCPF: " + cpf + "\nEmail: " + email;
     }
 
     
