@@ -49,8 +49,11 @@ public class Candidato extends Pessoa {
                     String email = rs.getString("email"); 
                     
                     // cria um objeto Candidato com os dados obtidos
-                    Candidato candidato = new Candidato(nome, cpf,email, numeroEleicao); 
-                    System.out.println(candidato); // exibe o objeto Professor.
+                    Candidato candidato = new Candidato(nome,email,cpf,numeroEleicao); 
+
+                    System.out.println("-------------------");
+                    System.out.println(candidato);
+                    System.out.println("-------------------");
                 } while (rs.next()); 
             }
             // Fecha a concecxão com o Banco de dados.
@@ -59,14 +62,14 @@ public class Candidato extends Pessoa {
     
         } catch (SQLException e) {
             // Em caso de erro, exibe essa mensagem
-            System.out.println("Erro ao listar professores: " + e.getMessage());
+            System.out.println("Erro ao listar candidatos: " + e.getMessage());
         }
     }
 
 
     @Override
     public String toString() {
-        return super.toString() + " numeroDaEleicao =" + numeroDaEleicao + ", totalDevotos =" + totalDevotos ;
+        return super.toString() + "\nNumero da eleicao: " + numeroDaEleicao + "\nTotal de votos:" + totalDevotos ;
     }
     
     
