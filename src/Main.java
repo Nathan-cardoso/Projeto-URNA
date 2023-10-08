@@ -71,6 +71,8 @@ public class Main {
 
                     break;
                     case 2:
+
+                    
                     case 3:
 
                     input.nextLine();
@@ -78,6 +80,13 @@ public class Main {
                     String exclusaoNumero;
                     System.out.print("\nDigite o número do candidato que deseja excluir -> ");
                     exclusaoNumero = input.nextLine();
+
+                        if(!exclusaoNumero.matches("\\d{5}")){
+                        System.out.println("------------------------------------------------");
+                        System.out.println("    Erro ao buscar o número do candidato.\n\tEra esperado 5 digitos numericos");
+                        System.out.println("------------------------------------------------");
+                        break;
+                    }
 
                     Candidato.excluir(exclusaoNumero);
                     break;
