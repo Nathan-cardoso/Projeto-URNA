@@ -62,7 +62,33 @@ public class Candidato extends Pessoa {
 
     }
 
+    public static void excluir(String numeroDaEleicao){
 
+        PreparedStatement pstm = null;
+        Connection connection = null;
+
+        try {
+            connection = new Conexao().getConnection();
+            String query = "DELETE FROM candidato where numero_eleicao = ?";
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, numeroDaEleicao);
+
+            int validacaoDeExclusao = pstm.executeUpdate();
+
+            if(validacaoDeExclusao > 0){
+                System.out.println("Candidato excluido com sucesso...");
+            }else{
+                System.out.println("------------------------------------------------");
+                System.out.println("Não foi encontrado candidatos com o código " + numeroDaEleicao);
+                System.out.println("------------------------------------------------");
+            }
+
+            pstm.close();
+            connection.close();
+        } catch ( SQLException e) {
+            System.out.println("Erro ao excluir candidato! erro: " + e.getMessage());
+        }
+    }
 
     public static void listar() {
         PreparedStatement pstmt = null;

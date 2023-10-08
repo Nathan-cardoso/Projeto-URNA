@@ -72,6 +72,14 @@ public class Main {
                     break;
                     case 2:
                     case 3:
+
+                    input.nextLine();
+                    
+                    String exclusaoNumero;
+                    System.out.print("\nDigite o número do candidato que deseja excluir -> ");
+                    exclusaoNumero = input.nextLine();
+
+                    Candidato.excluir(exclusaoNumero);
                     break;
                     case 4:
                     System.out.println("\tLista de Candidatos");
