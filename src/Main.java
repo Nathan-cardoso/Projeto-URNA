@@ -21,174 +21,230 @@ public class Main {
 
             if(senhaByPass.equals("teste2023")){
 
-                int navCandidato;
-
+                int navAdm;
                 do{
+            
+                    Menu.administracao();
+                    navAdm = input.nextInt();
 
-                Menu.candidato();
-                navCandidato = input.nextInt();
+                    switch(navAdm){
+                        case 1:
+                        int navCandidato;
 
-                switch(navCandidato){
-                    case 1:
-                    //Dados que o usuário passa para o banco.
-                    String numeroEleicao;
-                    String nome;
-                    String cpf;
-                    String email;
+                        do{
 
-                    input.nextLine();
-                    System.out.println("Digite o número do candidato: ");
-                    numeroEleicao = input.nextLine();
+                        Menu.candidato();
+                        navCandidato = input.nextInt();
 
-                    if(!numeroEleicao.matches("\\d{5}")){
-                        System.out.println("------------------------------------------------");
-                        System.out.println("    Erro ao cadastrar o número do candidato.\n\tEra esperado 5 digitos numericos");
-                        System.out.println("------------------------------------------------");
-                        break;
-                    }
-
-                    System.out.println("Informe o nome do candidato: ");
-                    nome = input.nextLine();
-
-                    System.out.println("Informe o cpf do candidato: ");
-                    cpf = input.nextLine();
-
-                    if(!cpf.matches("\\d{11}")){
-                        System.out.println("---------------------------------------------------------------------");
-                        System.out.println("\tCPF invalido! Foi passado " + cpf.length() + " digitos, era esperado 11");
-                        System.out.println("---------------------------------------------------------------------");
-                        break;
-                    }
-
-
-
-                    System.out.println("Para finalizar, digite o emeil do candidato: ");
-                    email = input.nextLine();
-
-                    Candidato candidato = new Candidato(nome, cpf, email, numeroEleicao);
-
-                    candidato.cadastrar();
-
-                    break;
-                    case 2:
-                        input.nextLine();
-
-                        int codigoEdicao;
-                        String numeroDeBusca;
-                        String alteracao;
-
-                        System.out.print("\nDigite o número do candidato que deseja editar -> ");
-                        numeroDeBusca = input.nextLine();
-
-                        Candidato cand = Candidato.buscar(numeroDeBusca);
-
-                        if(cand != null){
-                            System.out.println("------------------------------------------------");
-                            System.out.println(cand);
-                            System.out.println("------------------------------------------------");
-                        }else{
-                            System.out.println("Candidato não encotrado");
-                            break;
-                        }
-                        
-                        Menu.edicaoCandidato();
-                        codigoEdicao = input.nextInt();
-
-                        switch(codigoEdicao){
+                        switch(navCandidato){
                             case 1:
+                            //Dados que o usuário passa para o banco.
+                            String numeroEleicao;
+                            String nome;
+                            String cpf;
+                            String email;
+
                             input.nextLine();
-                            System.out.println("Informe o nome: ");
-                            alteracao = input.nextLine();
+                            System.out.println("Digite o número do candidato: ");
+                            numeroEleicao = input.nextLine();
 
-                            cand.editar(codigoEdicao, alteracao);
-
-                            break;
-
-                            case 2:
-                            input.nextLine();
-                            System.out.println("Informe o CPF: ");
-                            alteracao = input.nextLine();
-
-                            if(!alteracao.matches("\\d{11}")){
-
-                            System.out.println("---------------------------------------------------------------------");
-                            System.out.println("\tCPF invalido! Foi passado " + alteracao.length() + " digitos, era esperado 11");
-                            System.out.println("---------------------------------------------------------------------");
-
+                            if(!numeroEleicao.matches("\\d{5}")){
+                                System.out.println("------------------------------------------------");
+                                System.out.println("    Erro ao cadastrar o número do candidato.\n\tEra esperado 5 digitos numericos");
+                                System.out.println("------------------------------------------------");
                                 break;
                             }
 
-                            cand.editar(codigoEdicao, alteracao);
-                                    
-                            break;
+                            System.out.println("Informe o nome do candidato: ");
+                            nome = input.nextLine();
 
-                            case 3:
-                            input.nextLine();
-                            System.out.println("Informe o novo E-mail: ");
-                            alteracao = input.nextLine();
+                            System.out.println("Informe o cpf do candidato: ");
+                            cpf = input.nextLine();
 
-                            cand.editar(codigoEdicao, alteracao);
-
-                            break;
-
-                            case 4:
-                            input.nextLine();
-                            System.out.println("Informe o novo número para eleição");
-                            alteracao = input.nextLine();
-
-                            if(!alteracao.matches("\\d{5}")){
-                            System.out.println("------------------------------------------------");
-                            System.out.println("    Erro ao alterar o número do candidato.\n\tEra esperado 5 digitos numericos");
-                            System.out.println("------------------------------------------------");
+                            if(!cpf.matches("\\d{11}")){
+                                System.out.println("---------------------------------------------------------------------");
+                                System.out.println("\tCPF invalido! Foi passado " + cpf.length() + " digitos, era esperado 11");
+                                System.out.println("---------------------------------------------------------------------");
+                                break;
                             }
 
-                            cand.editar(codigoEdicao, alteracao);
+
+
+                            System.out.println("Para finalizar, digite o emeil do candidato: ");
+                            email = input.nextLine();
+
+                            Candidato candidato = new Candidato(nome, cpf, email, numeroEleicao);
+
+                            candidato.cadastrar();
 
                             break;
+                            case 2:
+                                input.nextLine();
 
+                                int codigoEdicao;
+                                String numeroDeBusca;
+                                String alteracao;
+
+                                System.out.print("\nDigite o número do candidato que deseja editar -> ");
+                                numeroDeBusca = input.nextLine();
+
+                                Candidato cand = Candidato.buscar(numeroDeBusca);
+
+                                if(cand != null){
+                                    System.out.println("------------------------------------------------");
+                                    System.out.println(cand);
+                                    System.out.println("------------------------------------------------");
+                                }else{
+                                    System.out.println("Candidato não encotrado");
+                                    break;
+                                }
+                                
+                                Menu.edicaoCandidato();
+                                codigoEdicao = input.nextInt();
+
+                                switch(codigoEdicao){
+                                    case 1:
+                                    input.nextLine();
+                                    System.out.println("Informe o nome: ");
+                                    alteracao = input.nextLine();
+
+                                    cand.editar(codigoEdicao, alteracao);
+
+                                    break;
+
+                                    case 2:
+                                    input.nextLine();
+                                    System.out.println("Informe o CPF: ");
+                                    alteracao = input.nextLine();
+
+                                    if(!alteracao.matches("\\d{11}")){
+
+                                    System.out.println("---------------------------------------------------------------------");
+                                    System.out.println("\tCPF invalido! Foi passado " + alteracao.length() + " digitos, era esperado 11");
+                                    System.out.println("---------------------------------------------------------------------");
+
+                                        break;
+                                    }
+
+                                    cand.editar(codigoEdicao, alteracao);
+                                            
+                                    break;
+
+                                    case 3:
+                                    input.nextLine();
+                                    System.out.println("Informe o novo E-mail: ");
+                                    alteracao = input.nextLine();
+
+                                    cand.editar(codigoEdicao, alteracao);
+
+                                    break;
+
+                                    case 4:
+                                    input.nextLine();
+                                    System.out.println("Informe o novo número para eleição");
+                                    alteracao = input.nextLine();
+
+                                    if(!alteracao.matches("\\d{5}")){
+                                    System.out.println("------------------------------------------------");
+                                    System.out.println("    Erro ao alterar o número do candidato.\n\tEra esperado 5 digitos numericos");
+                                    System.out.println("------------------------------------------------");
+                                    }
+
+                                    cand.editar(codigoEdicao, alteracao);
+
+                                    break;
+
+                                    default:
+                                    System.out.println("Erro de digitação");
+                                    break;
+                                }
+
+                                
+
+                                break;
+
+                            case 3:
+
+                            input.nextLine();
+                            
+                            String exclusaoNumero;
+                            System.out.print("\nDigite o número do candidato que deseja excluir -> ");
+                            exclusaoNumero = input.nextLine();
+
+                                if(!exclusaoNumero.matches("\\d{5}")){
+                                System.out.println("------------------------------------------------");
+                                System.out.println("    Erro ao buscar o número do candidato.\n\tEra esperado 5 digitos numericos");
+                                System.out.println("------------------------------------------------");
+                                break;
+                            }
+
+                            Candidato.excluir(exclusaoNumero);
+                            break;
+                            case 4:
+                            System.out.println("\tLista de Candidatos");
+                            Candidato.listar();
+                            break;
+                            case 5:
+                            break;
                             default:
                             System.out.println("Erro de digitação");
                             break;
                         }
 
-                        
+                        }while(navCandidato != 5);
 
-                        break;
+                        break; //Fim case 1 menu adm
 
-                    case 3:
+                        case 2:
 
-                    input.nextLine();
-                    
-                    String exclusaoNumero;
-                    System.out.print("\nDigite o número do candidato que deseja excluir -> ");
-                    exclusaoNumero = input.nextLine();
+                            int navEleitor;
 
-                        if(!exclusaoNumero.matches("\\d{5}")){
-                        System.out.println("------------------------------------------------");
-                        System.out.println("    Erro ao buscar o número do candidato.\n\tEra esperado 5 digitos numericos");
-                        System.out.println("------------------------------------------------");
-                        break;
+
+                            do{
+
+                                Menu.eleitor();
+                                navEleitor = input.nextInt();
+
+                                switch(navEleitor){
+                                case 1:
+                                System.out.println("Ok");
+                                break; // Fim  case 1 menu do eleitor na navegação do adm
+
+                                case 2:
+                                System.out.println("OK");
+                                break; // Fim case 2 menu do eleitor na navegação do adm.
+
+                                case 3:
+                                System.out.println("OK");
+                                break; //// Fim case 3 menu do eleitor na navegação do adm.
+
+                                case 4:
+                                System.out.println("Ok");
+                                break; // Fim case 4 menu do eleitor na navegação do adm.7
+
+                                case 5:
+                                break;
+
+                                default:
+                                System.out.println("Erro de digitação");
+                                break;
+                                }
+
+                            }while(navEleitor != 5);
+
+                        break; // Fim case 2 menu adm
+
+
                     }
 
-                    Candidato.excluir(exclusaoNumero);
-                    break;
-                    case 4:
-                    System.out.println("\tLista de Candidatos");
-                    Candidato.listar();
-                    break;
-                    case 5:
-                    break;
-                    default:
-                    System.out.println("Erro de digitação");
-                    break;
-                }
+                }while(navAdm != 4);
 
-                }while(navCandidato != 5);
             }else{
                 System.out.println("Senha invalida");
                 break;
             }
-            break;
+
+            break; //Direcionamento para a área de adm
 
             case 2:
             System.out.println("Ok");

@@ -16,9 +16,36 @@ public class Menu {
 
     }
 
+    public static void administracao(){
+
+        System.out.println("\n     Área de administração    ");
+        System.out.println(" ____________________________");
+        System.out.println("|                            |");
+        System.out.println("| 1 - Controle de candidatos |");
+        System.out.println("| 2 - Controle de eleitores  |");
+        System.out.println("| 3 - Gerar relatório        |");
+        System.out.println("| 4 - Sair                   |");
+        System.out.println("|____________________________|");
+        System.out.print("Digite o número referente ao campo que deseja navegar -> ");
+
+    }
+
     public static void candidato(){
 
         System.out.println("\n      Área de candidatos    ");
+        System.out.println(" ___________________________");
+        System.out.println("| 1 -> cadastrar            |");
+        System.out.println("| 2 -> editar               |");
+        System.out.println("| 3 -> excluir              |");
+        System.out.println("| 4 -> listar               |");
+        System.out.println("| 5 -> sair                 |");
+        System.out.println("|___________________________|");
+        System.out.print("Digite o número referente ao área que deseja navegar -> ");
+    }
+
+        public static void eleitor(){
+
+        System.out.println("\n      Área de eleitores    ");
         System.out.println(" ___________________________");
         System.out.println("| 1 -> cadastrar            |");
         System.out.println("| 2 -> editar               |");
