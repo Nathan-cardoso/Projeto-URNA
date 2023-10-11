@@ -12,7 +12,7 @@ CREATE TABLE eleitor (
 	nome varchar(60) not null,
 	cpf varchar(14) not null,
 	email varchar(70) not null,
-	senha varchar(20) not null,
-	status_voto boolean not null,
+	senha varchar(20),
+	status_voto boolean default false,
 	primary key (matricula)
 );

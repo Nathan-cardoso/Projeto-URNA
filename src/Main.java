@@ -207,7 +207,46 @@ public class Main {
 
                                 switch(navEleitor){
                                 case 1:
-                                System.out.println("Ok");
+                            String matricula;
+                            String nome;
+                            String cpf;
+                            String email;
+                            String senha;
+
+                            input.nextLine();
+                            System.out.println("Digite a matrícula do eleitor: ");
+                            matricula = input.nextLine();
+
+                            if(!matricula.matches("\\d{10}")){
+                                System.out.println("------------------------------------------------");
+                                System.out.println("    Erro ao cadastrar o número do eleitor.\n\tEra esperado 10 digitos numericos");
+                                System.out.println("------------------------------------------------");
+                                break;
+                            }
+
+                            System.out.println("Informe o nome do eleitor: ");
+                            nome = input.nextLine();
+
+                            System.out.println("Informe o cpf do eleitor: ");
+                            cpf = input.nextLine();
+
+                            if(!cpf.matches("\\d{11}")){
+                                System.out.println("---------------------------------------------------------------------");
+                                System.out.println("\tCPF invalido! Foi passado " + cpf.length() + " digitos, era esperado 11");
+                                System.out.println("---------------------------------------------------------------------");
+                                break;
+                            }
+
+                            System.out.println("Digite o emeil do eleitor: ");
+                            email = input.nextLine();
+
+                            System.out.println("Digite sua senha: ");
+                            senha = input.nextLine();
+
+                            Eleitor eleitor = new Eleitor(nome, cpf, email, matricula,senha);
+
+                            eleitor.cadastrar();
+
                                 break; // Fim  case 1 menu do eleitor na navegação do adm
 
                                 case 2:
