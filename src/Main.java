@@ -258,7 +258,8 @@ public class Main {
                                 break; //// Fim case 3 menu do eleitor na navegação do adm.
 
                                 case 4:
-                                System.out.println("Ok");
+                                System.out.println("\tLista dos eleitores cadastrados");
+                                Eleitor.listar();
                                 break; // Fim case 4 menu do eleitor na navegação do adm.7
 
                                 case 5:

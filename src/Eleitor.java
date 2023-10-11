@@ -1,5 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Eleitor extends Pessoa{
     private String matricula;
@@ -61,7 +63,61 @@ public class Eleitor extends Pessoa{
 
             System.out.println("Erro de conexão: " + e.getMessage());
         }
-
     }
+    
+    
+    public static void listar() {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+    
+        try {
+            Connection connection = new Conexao().getConnection(); // obtém a conexão com o banco de dados
+            String query = "SELECT * FROM eleitor"; // query para selecionar todos os professores
+            pstmt = connection.prepareStatement(query); // prepara a query para ser executada
+            rs = pstmt.executeQuery(); // executa a query e obtém os resultados
+    
+            if (!rs.next()) { // verifica se não há resultados
+                System.out.println("Não há nenhum eleitor cadastrado.");
+            } else {
+                do {
+
+                    String numeroEleicao = rs.getString("matricula");
+                    String nome = rs.getString("nome"); 
+                    String cpf = rs.getString("cpf");
+                    String email = rs.getString("email"); 
+                    String senha = rs.getString("senha");
+                    
+                    // cria um objeto eleitor com os dados obtidos
+                    Eleitor eleitor = new Eleitor(nome,cpf,email,numeroEleicao,senha ); 
+
+                    System.out.println("-------------------");
+                    System.out.println(eleitor.toStringAdm());
+                    System.out.println("-------------------");
+                } while (rs.next()); 
+            }
+            // Fecha a concecxão com o Banco de dados.
+            pstmt.close();
+            connection.close();
+    
+        } catch (SQLException e) {
+            // Em caso de erro, exibe essa mensagem
+            System.out.println("Erro ao listar candidatos: " + e.getMessage());
+        }
+    }
+
+    public String formatacaoVoto(){
+        if(isStatusDeVoto()){
+            return "Votou";
+        }
+        else{
+            return "Não votou";
+        }
+    }
+    
+    public String toStringAdm() {
+        return super.toString() + "\nMatrícula:" + matricula + "\nstatus De Voto: " + formatacaoVoto();
+    }
+
+    
     
 }
