@@ -62,6 +62,106 @@ public class Candidato extends Pessoa {
 
     }
 
+    public static Candidato buscar(String numeroEleicao){
+        PreparedStatement pstm = null; 
+        ResultSet rs = null;
+
+        try {
+
+            Connection connection = new Conexao().getConnection();
+            String query = "SELECT * FROM candidato where numero_eleicao = ?";
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, numeroEleicao);
+            rs = pstm.executeQuery();
+
+            if(!rs.next()){
+                return null;
+
+            }else{
+
+                    String numEleicao = rs.getString("numero_eleicao");
+                    String nome = rs.getString("nome"); 
+                    String cpf = rs.getString("cpf");
+                    String email = rs.getString("email"); 
+                    
+                    
+                    Candidato candidato = new Candidato(nome,cpf,email,numEleicao); 
+
+                    return candidato;
+            }
+
+
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erro na busca do candidato: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    public void editar(int codigo, String alteracao){
+        PreparedStatement pstm = null;
+        String query;
+        try {
+            Connection connection = new Conexao().getConnection();
+
+            switch(codigo){
+                case 1:
+
+                 query = "UPDATE candidato SET nome = ? WHERE numero_eleicao = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getNumeroDaEleicao());
+
+                break;
+                
+                case 2:
+
+                 query = "UPDATE candidato SET cpf = ? WHERE numero_eleicao = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getNumeroDaEleicao());
+
+                break;
+
+                 case 3:
+
+                 query = "UPDATE candidato SET email = ? WHERE numero_eleicao = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getNumeroDaEleicao());
+            
+                break;
+
+                case 4:
+                 query = "UPDATE candidato SET numero_eleicao = ? WHERE numero_eleicao = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getNumeroDaEleicao());
+
+                break;
+            }
+
+            int validacaoDaEdit = pstm.executeUpdate();
+
+            if (validacaoDaEdit > 0 ){
+                System.out.println("------------------------------------------------");
+                System.out.println("Candidato(a) atualizado com sucesso...");
+                System.out.println("------------------------------------------------");
+            }else{
+
+                System.out.println("Erro na atualização...");
+
+            }
+
+            pstm.close();
+            connection.close();
+
+
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
     public static void excluir(String numeroDaEleicao){
 
         PreparedStatement pstm = null;
@@ -132,9 +232,7 @@ public class Candidato extends Pessoa {
     @Override
     public String toString() {
         return super.toString() + "\nNumero da eleicao: " + numeroDaEleicao;
-    }
-    
-    
+    } 
     
     
 }
