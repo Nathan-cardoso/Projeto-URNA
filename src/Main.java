@@ -254,12 +254,29 @@ public class Main {
                                 break; // Fim case 2 menu do eleitor na navegação do adm.
 
                                 case 3:
-                                System.out.println("OK");
+                                
+                                    input.nextLine();
+                                    
+                                    String excluirMatricula;
+                                    System.out.print("\nDigite a matricula do eleitor que deseja excluir -> ");
+                                    excluirMatricula = input.nextLine();
+
+                                        if(!excluirMatricula.matches("\\d{10}")){
+                                        System.out.println("------------------------------------------------");
+                                        System.out.println("    Erro ao buscar a matricula do eleitor.\n\tEra esperado 10 digitos numericos");
+                                        System.out.println("------------------------------------------------");
+                                        break;
+                                    }
+
+                                    Eleitor.excluir(excluirMatricula);
+
                                 break; //// Fim case 3 menu do eleitor na navegação do adm.
 
                                 case 4:
+
                                 System.out.println("\tLista dos eleitores cadastrados");
                                 Eleitor.listar();
+                                
                                 break; // Fim case 4 menu do eleitor na navegação do adm.7
 
                                 case 5:

@@ -64,6 +64,35 @@ public class Eleitor extends Pessoa{
             System.out.println("Erro de conexão: " + e.getMessage());
         }
     }
+
+    public static void excluir(String matricula){
+
+        PreparedStatement pstm = null;
+        Connection connection = null;
+
+        try {
+            connection = new Conexao().getConnection();
+            String query = "DELETE FROM eleitor where matricula = ?";
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, matricula);
+
+            int validacaoDeExclusao = pstm.executeUpdate();
+
+            if(validacaoDeExclusao > 0){
+                System.out.println("eleitor excluido com sucesso...");
+            }else{
+                System.out.println("------------------------------------------------");
+                System.out.println("Não foi encontrado eleitor com o código " + matricula);
+                System.out.println("------------------------------------------------");
+            }
+
+            pstm.close();
+            connection.close();
+
+        } catch ( SQLException e) {
+            System.out.println("Erro ao excluir eleitor! erro: " + e.getMessage());
+        }
+    }
     
     
     public static void listar() {
@@ -101,7 +130,7 @@ public class Eleitor extends Pessoa{
     
         } catch (SQLException e) {
             // Em caso de erro, exibe essa mensagem
-            System.out.println("Erro ao listar candidatos: " + e.getMessage());
+            System.out.println("Erro ao listar eleitores: " + e.getMessage());
         }
     }
 
