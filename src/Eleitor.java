@@ -14,23 +14,8 @@ public class Eleitor extends Pessoa{
         this.senha = senha;
     }
 
-    public String getSenha() {
-        return senha;
-    }
 
-    public String getMatricula() {
-        return matricula;
-    }
-
-
-    public boolean isStatusDeVoto() {
-        return statusDeVoto;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    
+//Método para cadastro de eleitores no banco  de dados.
        public void cadastrar(){
         try {
             Connection connection = new Conexao().getConnection();
@@ -65,6 +50,12 @@ public class Eleitor extends Pessoa{
         }
     }
 
+
+/**
+ * Esse método faz uma busca no banco de dados a partir da matícula passada como parâmetro. Caso não seja encontrado a matícula será retornado null. Porém, se a matrícula for existente ira retorna um objeto eleitor.
+ * @param matricula
+ * @return
+ */ 
     public static Eleitor buscar(String matricula){
         PreparedStatement pstm = null; 
         ResultSet rs = null;
@@ -102,6 +93,12 @@ public class Eleitor extends Pessoa{
         return null;
     }
 
+
+/**
+ * Esse método recebe um inteiro que é o código para saber qual alteração se trata vai ser feita e uma string sendo a alteração.
+ * @param codigoEdicao
+ * @param alteracao
+ */
     public void editar(int codigoEdicao, String alteracao){
         PreparedStatement pstm = null;
         String query;
@@ -166,6 +163,11 @@ public class Eleitor extends Pessoa{
         }
     }
 
+
+/**
+ * Esse método excluí um aluno do banco de dados a partir da matrícula passada como parâmetro para o método
+ * @param matricula
+ */
     public static void excluir(String matricula){
 
         PreparedStatement pstm = null;
@@ -194,8 +196,9 @@ public class Eleitor extends Pessoa{
             System.out.println("Erro ao excluir eleitor! erro: " + e.getMessage());
         }
     }
+
     
-    
+//método para listar todos os usuários do banco de dados
     public static void listar() {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -211,14 +214,14 @@ public class Eleitor extends Pessoa{
             } else {
                 do {
 
-                    String numeroEleicao = rs.getString("matricula");
+                    String matricula = rs.getString("matricula");
                     String nome = rs.getString("nome"); 
                     String cpf = rs.getString("cpf");
                     String email = rs.getString("email"); 
                     String senha = rs.getString("senha");
                     
                     // cria um objeto eleitor com os dados obtidos
-                    Eleitor eleitor = new Eleitor(nome,cpf,email,numeroEleicao,senha ); 
+                    Eleitor eleitor = new Eleitor(nome,cpf,email,matricula,senha ); 
 
                     System.out.println("-------------------");
                     System.out.println(eleitor.toStringAdm());
@@ -235,6 +238,59 @@ public class Eleitor extends Pessoa{
         }
     }
 
+    public static Eleitor login(String email, String senha){
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            Connection connection = new Conexao().getConnection();
+            String query = "SELECT * From eleitor where email = ? AND senha = ?";
+            pstm = connection.prepareStatement(query);
+
+            pstm.setString(1, email);
+            pstm.setString(2, senha);
+
+            rs = pstm.executeQuery();
+
+            if(rs.next()){
+                String matricula = rs.getString("matricula");
+                String nome = rs.getString("nome"); 
+                String cpf = rs.getString("cpf");
+
+                Eleitor eleitor = new Eleitor(nome,cpf,email,matricula,senha ); 
+
+                return  eleitor;
+            }
+
+            
+        } catch (SQLException e) {
+            System.out.println("Erro" + e.getMessage());
+        }
+
+        return null;
+    }
+
+
+//Sessão de getters
+    public String getSenha() {
+        return senha;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+
+//Sessão de setters
+    public boolean isStatusDeVoto() {
+        return statusDeVoto;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+
+//Exibição e formatação de dados.
     public String formatacaoVoto(){
         if(isStatusDeVoto()){
             return "Votou";
@@ -246,6 +302,10 @@ public class Eleitor extends Pessoa{
     
     public String toStringAdm() {
         return super.toString() + "\nMatrícula:" + matricula + "\nstatus De Voto: " + formatacaoVoto();
+    }
+
+    public String toString() {
+        return "Nome: " + getNome() + "\nCPF: " + getCpf() + "\nE-mail: " + getEmail() + "\nMatrícula:" + getMatricula() + "\nStatus de voto: "  + formatacaoVoto(); 
     }
 
     
