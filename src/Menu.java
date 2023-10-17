@@ -6,9 +6,9 @@ public class Menu {
         System.out.println("\n\t      Urna Universitária      ");
         System.out.println("\t ___________________________");
         System.out.println("\t|                           |");
-        System.out.println("\t| 1 -> Adimistração         |");
+        System.out.println("\t| 1 -> Admistração          |");
         System.out.println("\t|                           |");
-        System.out.println("\t| 2 -> Votar                |");
+        System.out.println("\t| 2 -> Área do eleitor      |");
         System.out.println("\t|                           |");
         System.out.println("\t| 3 -> Sair                 |");
         System.out.println("\t|___________________________|");
@@ -80,6 +80,28 @@ public class Menu {
         System.out.println("| 5 - Sair                      |");
         System.out.println("|_______________________________|");
         System.out.print("Digite o número referente ao campo que deseja alterar -> ");
+    }
+
+    public static void loginEleitor(){
+        System.out.println(" _______________________________");
+        System.out.println("|                               |");
+        System.out.println("| 1 - Entrar                    |");
+        System.out.println("| 2 - Cadastra-se               |");
+        System.out.println("| 3 - voltar                    |");
+        System.out.println("|_______________________________|");
+        System.out.print("Digite o número referente a ação desejada -> ");       
+    }
+
+    public static void areaEleitor(){
+        System.out.println(" _______________________________");
+        System.out.println("|                               |");
+        System.out.println("| 1 - Ir para votação           |");
+        System.out.println("| 2 - Consultar meus dados      |");
+        System.out.println("| 3 - editar meus dados         |");
+        System.out.println("| 4 - voltar                    |");
+        System.out.println("|_______________________________|");
+    System.out.print("Digite o número referente a ação desejada -> "); 
+
     }
     
     
