@@ -69,5 +69,18 @@ public class Menu {
         System.out.print("Digite o número referente ao campo que deseja alterar -> ");
     }
 
+        public static void edicaoEleitor(){
+        System.out.println(" _______________________________");
+        System.out.println("|   O que deseja alterar?       |");
+        System.out.println("|                               |");
+        System.out.println("| 1 - Nome                      |");
+        System.out.println("| 2 - CPF                       |");
+        System.out.println("| 3 - Email                     |");
+        System.out.println("| 4 - Senha                     |");
+        System.out.println("| 5 - Sair                      |");
+        System.out.println("|_______________________________|");
+        System.out.print("Digite o número referente ao campo que deseja alterar -> ");
+    }
+    
     
  }

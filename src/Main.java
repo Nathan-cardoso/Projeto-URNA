@@ -250,7 +250,99 @@ public class Main {
                                 break; // Fim  case 1 menu do eleitor na navegação do adm
 
                                 case 2:
-                                System.out.println("OK");
+                                 input.nextLine();
+
+                                int codigoEdicaoEleitor;
+                                String matriculaBusca;
+                                String alteracao;
+
+                                System.out.print("\nDigite a matrícula do eleitor que deseja editar -> ");
+                                matriculaBusca = input.nextLine();
+
+                                if(!matriculaBusca.matches("\\d{10}")){
+                                    System.out.println("------------------------------------------------");
+                                    System.out.println("    Erro ao pesquisar a matrícula do eleitor.\n\tEra esperado 10 digitos numericos");
+                                    System.out.println("------------------------------------------------");
+                                    break;
+                                }
+
+                                Eleitor eli = Eleitor.buscar(matriculaBusca);
+
+                                if(eli != null){
+                                    System.out.println("------------------------------------------------");
+                                    System.out.println(eli);
+                                    System.out.println("------------------------------------------------");
+                                }else{
+                                    System.out.println("Eleitor não encotrado");
+                                    break;
+                                }
+                                
+                                Menu.edicaoEleitor();
+                                codigoEdicaoEleitor = input.nextInt();
+
+                                switch(codigoEdicaoEleitor){
+                                    case 1: 
+
+                                    input.nextLine();
+
+                                    System.out.println("Informe o nome: ");
+                                    alteracao = input.nextLine();
+
+                                    eli.editar(codigoEdicaoEleitor, alteracao);
+
+                                    break; // Fim case 1 de edição eleitor
+
+                                    case 2: 
+
+                                    input.nextLine();
+                                    System.out.println("Informe o CPF: ");
+                                    alteracao = input.nextLine();
+
+                                    if(!alteracao.matches("\\d{11}")){
+
+                                    System.out.println("---------------------------------------------------------------------");
+                                    System.out.println("\tCPF invalido! Foi passado " + alteracao.length() + " digitos, era esperado 11");
+                                    System.out.println("---------------------------------------------------------------------");
+
+                                        break;
+                                    }
+
+                                    eli.editar(codigoEdicaoEleitor, alteracao);
+
+                                    break; // Fim case 2 de edição eleitor
+
+                                    case 3: 
+
+                                    input.nextLine();
+                                    System.out.println("Informe o novo E-mail: ");
+                                    alteracao = input.nextLine();
+
+                                    eli.editar(codigoEdicaoEleitor, alteracao);
+
+                                    break; // Fim case 3 de edição eleitor
+
+                                    case 4: 
+
+                                    input.nextLine();
+                                    System.out.println("Informe o nova senha: ");
+                                    alteracao = input.nextLine();
+
+                                    eli.editar(codigoEdicaoEleitor, alteracao);
+
+                                    break; // Fim case 4 de edição eleitor
+
+                                    case 5: 
+
+                                    break; // Fim case 5 de edição eleitor
+
+                                    default:
+                                        System.out.println("Erro de digitação");
+
+                                    break;
+
+
+                                }
+
                                 break; // Fim case 2 menu do eleitor na navegação do adm.
 
                                 case 3:

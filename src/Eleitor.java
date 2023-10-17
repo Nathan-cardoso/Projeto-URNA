@@ -65,6 +65,107 @@ public class Eleitor extends Pessoa{
         }
     }
 
+    public static Eleitor buscar(String matricula){
+        PreparedStatement pstm = null; 
+        ResultSet rs = null;
+
+        try {
+
+            Connection connection = new Conexao().getConnection();
+            String query = "SELECT * FROM eleitor where matricula = ?";
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, matricula);
+            rs = pstm.executeQuery();
+
+            if(!rs.next()){
+                return null;
+
+            }else{
+
+                    String mat = rs.getString("matricula");
+                    String nome = rs.getString("nome"); 
+                    String cpf = rs.getString("cpf");
+                    String email = rs.getString("email");
+                    String senha = rs.getString("senha");
+                    
+                    
+                    Eleitor eleitor = new Eleitor(nome,cpf,email,mat,senha); 
+
+                    return eleitor;
+            }
+
+
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erro na busca do eleitor: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    public void editar(int codigoEdicao, String alteracao){
+        PreparedStatement pstm = null;
+        String query;
+        try {
+            Connection connection = new Conexao().getConnection();
+
+            switch(codigoEdicao){
+                case 1:
+
+                 query = "UPDATE eleitor SET nome = ? WHERE matricula = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getMatricula());
+
+                break;
+                
+                case 2:
+
+                 query = "UPDATE eleitor SET cpf = ? WHERE matricula = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getMatricula());
+
+                break;
+
+                 case 3:
+
+                 query = "UPDATE eleitor SET email = ? WHERE matricula = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getMatricula());
+            
+                break;
+
+                case 4:
+                 query = "UPDATE eleitor SET senha = ? WHERE matricula = ?";
+                 pstm = connection.prepareStatement(query);
+                 pstm.setString(1, alteracao);
+                 pstm.setString(2, getMatricula());
+
+                break;
+            }
+
+            int validacaoDaEdit = pstm.executeUpdate();
+
+            if (validacaoDaEdit > 0 ){
+                System.out.println("------------------------------------------------");
+                System.out.println("Eleitor(a) atualizado com sucesso...");
+                System.out.println("------------------------------------------------");
+            }else{
+
+                System.out.println("Erro na atualização...");
+
+            }
+
+            pstm.close();
+            connection.close();
+
+
+        } catch (java.sql.SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
     public static void excluir(String matricula){
 
         PreparedStatement pstm = null;
