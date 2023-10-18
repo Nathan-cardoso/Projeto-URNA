@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
 
-public class Eleicao {
+public class Controle {
         //Método para ação e exibição do menu dos candidatos
     public static void handleCandidatoMenu(Scanner input) {
         int navCandidato;
@@ -37,7 +37,7 @@ public class Eleicao {
         int navCandidato;
 
         do {
-            Menu.candidato();
+            Menu.eleitor();
             navCandidato = input.nextInt();
 
             switch (navCandidato) {

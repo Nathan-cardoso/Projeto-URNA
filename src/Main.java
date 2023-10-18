@@ -28,17 +28,17 @@ public class Main {
 
                             switch (navAdm) {
                                 case 1:
-                                    Eleicao.handleCandidatoMenu(input);
+                                    Controle.handleCandidatoMenu(input);
                                     break; // Fim case 1 menu adm
 
                                 case 2:
 
-                                    Eleicao.handleEleitorMenu(input);
+                                    Controle.handleEleitorMenu(input);
                                     break; // Fim case 2 menu adm
 
                                 case 3:
 
-                                    Eleicao.viewRelatorio();
+                                    Controle.viewRelatorio();
                                     break;// Fim case 3 menu adm
 
                             }
@@ -62,11 +62,11 @@ public class Main {
 
                         switch (navAreaEleitor) {
                             case 1:
-                                Eleicao.login(input);
+                                Controle.login(input);
                                 break; // Breack do case 1 da área de eleitores
 
                             case 2:
-                                Eleicao.cadastroLogin(input);
+                                Controle.cadastroLogin(input);
                                 break; // Break do case 2 da área de eleitores
 
                             case 3:
