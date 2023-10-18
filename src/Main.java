@@ -54,6 +54,9 @@ public class Main {
                                 System.out.println("    Erro ao cadastrar o número do candidato.\n\tEra esperado 5 digitos numericos");
                                 System.out.println("------------------------------------------------");
                                 break;
+                            }else if(numeroEleicao.equals("00000")){
+                                System.out.println("Não pode ser cadastrado esse número para eleição");
+                                break;
                             }
 
                             System.out.println("Informe o nome do candidato: ");
@@ -149,6 +152,9 @@ public class Main {
                                     System.out.println("------------------------------------------------");
                                     System.out.println("    Erro ao alterar o número do candidato.\n\tEra esperado 5 digitos numericos");
                                     System.out.println("------------------------------------------------");
+                                    }else if(alteracao.equals("00000")){
+                                    System.out.println("Não pode ser cadastrado esse número para eleição");
+                                            break;
                                     }
 
                                     cand.editar(codigoEdicao, alteracao);

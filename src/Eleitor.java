@@ -287,18 +287,25 @@ public class Eleitor extends Pessoa{
     
         try {
             connection = new Conexao().getConnection();
+
+            if(voto.equals("00000")){
+                query = "UPDATE voto SET voto_branco = voto_branco + 1";
+                pstm = connection.prepareStatement(query);
+                pstm.executeUpdate();
+            }
+
             Candidato candVotado = Candidato.buscar(voto);
     
-            if (candVotado != null) {
-                query = "UPDATE candidato SET total_votos = total_votos + 1 WHERE numero_eleicao = ?";
-                pstm = connection.prepareStatement(query);
-                pstm.setString(1, voto);
-                pstm.executeUpdate();
-            } else {
+            if (candVotado == null) {
                 query = "UPDATE voto SET voto_nulo = voto_nulo + 1";
                 pstm = connection.prepareStatement(query);
                 pstm.executeUpdate();
             }
+
+                query = "UPDATE candidato SET total_votos = total_votos + 1 WHERE numero_eleicao = ?";
+                pstm = connection.prepareStatement(query);
+                pstm.setString(1, voto);
+                pstm.executeUpdate();
     
             // Se a atualização anterior for bem-sucedida, atualize o status de voto do eleitor
             query = "UPDATE eleitor SET status_voto = true WHERE matricula = ?";
@@ -309,17 +316,6 @@ public class Eleitor extends Pessoa{
             System.out.println("Voto concluído");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão ou o PreparedStatement: " + e.getMessage());
-            }
         }
     }
 
