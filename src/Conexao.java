@@ -8,20 +8,20 @@ public class Conexao {
     private static final String USER = "otycuzte";
     private static final String PASSWORD = "kyljimQvrPaAF-VuzYrRQYqSo9il8JBj";
 
-    public Connection getConnection() throws SQLException{
+    public Connection getConnection() throws SQLException {
         Connection connection = null;
-        try{
+        try {
 
-        connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
 
             System.out.println("Não foi possível conectar ao banco de dados: " + e.getMessage());
         }
         return connection;
     }
 
-    public  void closeConnection(Connection connection) {//Método que desconecta 
+    public void closeConnection(Connection connection) {// Método que desconecta
         try {
 
             if (connection != null) {
@@ -29,8 +29,8 @@ public class Conexao {
 
             }
         } catch (SQLException e) {
-            
+
             System.out.println("Erro ao fechar a conexão com o banco de dados: " + e.getMessage());
         }
     }
-    }
+}

@@ -1,8 +1,8 @@
 public class Menu {
 
-    //menu principal
-    public static void inicial(){
-        
+    // menu principal
+    public static void inicial() {
+
         System.out.println("\n\t      Urna Universitária      ");
         System.out.println("\t ___________________________");
         System.out.println("\t|                           |");
@@ -16,7 +16,7 @@ public class Menu {
 
     }
 
-    public static void administracao(){
+    public static void administracao() {
 
         System.out.println("\n     Área de administração    ");
         System.out.println(" ____________________________");
@@ -30,7 +30,7 @@ public class Menu {
 
     }
 
-    public static void candidato(){
+    public static void candidato() {
 
         System.out.println("\n      Área de candidatos    ");
         System.out.println(" ___________________________");
@@ -43,7 +43,7 @@ public class Menu {
         System.out.print("Digite o número referente ao área que deseja navegar -> ");
     }
 
-        public static void eleitor(){
+    public static void eleitor() {
 
         System.out.println("\n      Área de eleitores    ");
         System.out.println(" ___________________________");
@@ -56,7 +56,7 @@ public class Menu {
         System.out.print("Digite o número referente ao área que deseja navegar -> ");
     }
 
-    public static void edicaoCandidato(){
+    public static void edicaoCandidato() {
         System.out.println(" _______________________________");
         System.out.println("|   O que deseja alterar?       |");
         System.out.println("|                               |");
@@ -69,7 +69,7 @@ public class Menu {
         System.out.print("Digite o número referente ao campo que deseja alterar -> ");
     }
 
-        public static void edicaoEleitor(){
+    public static void edicaoEleitor() {
         System.out.println(" _______________________________");
         System.out.println("|   O que deseja alterar?       |");
         System.out.println("|                               |");
@@ -82,17 +82,17 @@ public class Menu {
         System.out.print("Digite o número referente ao campo que deseja alterar -> ");
     }
 
-    public static void loginEleitor(){
+    public static void loginEleitor() {
         System.out.println(" _______________________________");
         System.out.println("|                               |");
         System.out.println("| 1 - Entrar                    |");
         System.out.println("| 2 - Cadastra-se               |");
         System.out.println("| 3 - voltar                    |");
         System.out.println("|_______________________________|");
-        System.out.print("Digite o número referente a ação desejada -> ");       
+        System.out.print("Digite o número referente a ação desejada -> ");
     }
 
-    public static void areaEleitor(){
+    public static void areaEleitor() {
         System.out.println(" _______________________________");
         System.out.println("|                               |");
         System.out.println("| 1 - Ir para votação           |");
@@ -100,16 +100,15 @@ public class Menu {
         System.out.println("| 3 - editar meus dados         |");
         System.out.println("| 4 - voltar                    |");
         System.out.println("|_______________________________|");
-    System.out.print("Digite o número referente a ação desejada -> "); 
+        System.out.print("Digite o número referente a ação desejada -> ");
 
     }
 
-    public static void relatório(){
+    public static void relatório() {
         System.out.println(" _________________________________");
-        System.out.println("|        Relatório dos votos      |" );
+        System.out.println("|        Relatório dos votos      |");
         System.out.println("|_________________________________|");
         System.out.println("\n---------------------------------------");
     }
-    
-    
- }
+
+}
