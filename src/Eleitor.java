@@ -275,43 +275,52 @@ public class Eleitor extends Pessoa {
     }
 
     public void votar(String voto) {
-
         setStatusDeVoto(true);
-
         PreparedStatement pstm = null;
         String query;
         Connection connection = null;
-
+    
         try {
             connection = new Conexao().getConnection();
-
-            if (voto.equals("00000")) {
-                query = "UPDATE voto SET voto_branco = voto_branco + 1";
+    
+            // Verificar se o candidato com o número de voto existe
+            query = "SELECT numero_eleicao FROM candidato WHERE numero_eleicao = ?";
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, voto);
+    
+            ResultSet rs = pstm.executeQuery();
+    
+            if (rs.next()) {
+                // Candidato encontrado, atualize o número de votos do candidato
+                query = "UPDATE candidato SET total_votos = total_votos + 1 WHERE numero_eleicao = ?";
                 pstm = connection.prepareStatement(query);
+                pstm.setString(1, voto);
                 pstm.executeUpdate();
-            }
-
-            Candidato candVotado = Candidato.buscar(voto);
-
-            if (candVotado == null) {
+            }else {
+                // Voto nulo
                 query = "UPDATE voto SET voto_nulo = voto_nulo + 1";
                 pstm = connection.prepareStatement(query);
                 pstm.executeUpdate();
             }
 
-            query = "UPDATE candidato SET total_votos = total_votos + 1 WHERE numero_eleicao = ?";
-            pstm = connection.prepareStatement(query);
-            pstm.setString(1, voto);
-            pstm.executeUpdate();
-
-            // Se a atualização anterior for bem-sucedida, atualize o status de voto do
-            // eleitor
+            if (voto.equals("00000")) {
+                // Voto em branco
+                query = "UPDATE voto SET voto_branco = voto_branco + 1";
+                pstm = connection.prepareStatement(query);
+                pstm.executeUpdate();
+            }
+    
+            // Se a atualização anterior for bem-sucedida, atualize o status de voto do eleitor
             query = "UPDATE eleitor SET status_voto = true WHERE matricula = ?";
             pstm = connection.prepareStatement(query);
             pstm.setString(1, getMatricula());
             pstm.executeUpdate();
 
-            System.out.println("Voto concluído");
+            connection.close();
+            pstm.close();
+            rs.close();
+            
+            System.out.println("Voto concluído!"); 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

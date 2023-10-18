@@ -429,7 +429,9 @@ public class Controle {
 
                         }
 
-                        System.out.println("Digite o número do candidato que deseja votar");
+                        Menu.informes();
+
+                        System.out.println("\t Digite seu voto abaixo ");
                         voto = input.nextLine();
 
                         user.votar(voto);

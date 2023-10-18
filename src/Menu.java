@@ -97,8 +97,8 @@ public class Menu {
         System.out.println("|                               |");
         System.out.println("| 1 - Ir para votação           |");
         System.out.println("| 2 - Consultar meus dados      |");
-        System.out.println("| 3 - editar meus dados         |");
-        System.out.println("| 4 - voltar                    |");
+        System.out.println("| 3 - Editar meus dados         |");
+        System.out.println("| 4 - Sair                      |");
         System.out.println("|_______________________________|");
         System.out.print("Digite o número referente a ação desejada -> ");
 
@@ -109,6 +109,16 @@ public class Menu {
         System.out.println("|        Relatório dos votos      |");
         System.out.println("|_________________________________|");
         System.out.println("\n---------------------------------------");
+    }
+
+    public static void informes(){
+        System.out.println("                                Informações para o eleitor                                    ");
+        System.out.println(" ______________________________________________________________________________________________");
+        System.out.println("| - Seu voto é anônimo, nós da admistração e candidatos não tomamos conhecimento dos votos     |");
+        System.out.println("| - Caso digite um número que não corresponda a nenhum candidato, seu voto será computado nulo |");
+        System.out.println("| - Para votar em branco, o sistema irá computar essa alterna se for passado o número '00000'  |" );
+        System.out.println("|______________________________________________________________________________________________|");
+
     }
 
 }
