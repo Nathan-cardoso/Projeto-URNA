@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -28,7 +29,7 @@ public class Main {
                     navAdm = input.nextInt();
 
                     switch(navAdm){
-                        case 1:
+                    case 1:
                         int navCandidato;
 
                         do{
@@ -195,7 +196,7 @@ public class Main {
 
                         break; //Fim case 1 menu adm
 
-                        case 2:
+                    case 2:
 
                             int navEleitor;
 
@@ -324,7 +325,7 @@ public class Main {
                                     case 4: 
 
                                     input.nextLine();
-                                    System.out.println("Informe o nova senha: ");
+                                    System.out.println("Informe a nova senha: ");
                                     alteracao = input.nextLine();
 
                                     eli.editar(codigoEdicaoEleitor, alteracao);
@@ -382,7 +383,18 @@ public class Main {
                             }while(navEleitor != 5);
 
                         break; // Fim case 2 menu adm
+                    
+                    case 3:
 
+                        List<String> resultados = Candidato.gerarRelatorio();
+                        
+                        Menu.relatório();
+
+                        for (String resultado : resultados) {
+                            System.out.println(resultado);
+                        }
+
+                    break;// Fim case 3 menu adm
 
                     }
 
@@ -435,7 +447,23 @@ public class Main {
 
                         switch(navLogado){
                             case 1:
+                            input.nextLine();
 
+                            
+                            String voto;
+
+                                if(user.isStatusDeVoto() == true){
+                                System.out.println("Não é permitodo votar novamente");
+                                break;
+
+                            }
+
+                            System.out.println("Digite o número do candidato que deseja votar");
+                            voto = input.nextLine();
+
+                            user.votar(voto);
+                            
+                            
                             break; // Fim do case 1 da área após o login
 
                             case 2:
@@ -541,20 +569,20 @@ public class Main {
                         String senha;
 
                         input.nextLine();
-                        System.out.println("Digite a matrícula do eleitor: ");
+                        System.out.println("Digite seu número de matrícula: ");
                         matricula = input.nextLine();
 
                         if(!matricula.matches("\\d{10}")){
                             System.out.println("------------------------------------------------");
-                            System.out.println("    Erro ao cadastrar o número do eleitor.\n\tEra esperado 10 digitos numericos");
+                            System.out.println("    Erro ao cadastrar a matrícula do eleitor.\n\tEra esperado 10 digitos numericos");
                             System.out.println("------------------------------------------------");
                             break;
                         }
 
-                        System.out.println("Informe o nome do eleitor: ");
+                        System.out.println("Informe seu nome: ");
                         nome = input.nextLine();
 
-                        System.out.println("Informe o cpf do eleitor: ");
+                        System.out.println("Informe seu CPF: ");
                         cpf = input.nextLine();
 
                         if(!cpf.matches("\\d{11}")){
@@ -564,10 +592,10 @@ public class Main {
                             break;
                         }
 
-                        System.out.println("Digite o emeil do eleitor: ");
+                        System.out.println("Digite seu  E-meil: ");
                         email = input.nextLine();
 
-                        System.out.println("Digite sua senha: ");
+                        System.out.println("cadastre uma senha: ");
                         senha = input.nextLine();
 
                         Eleitor eleitor = new Eleitor(nome, cpf, email, matricula,senha);

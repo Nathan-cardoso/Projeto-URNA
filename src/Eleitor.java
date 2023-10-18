@@ -14,6 +14,13 @@ public class Eleitor extends Pessoa{
         this.senha = senha;
     }
 
+        public Eleitor(String nome, String cpf, String email, String matricula, String senha, boolean statusDeVoto) {
+        super(nome, cpf, email);
+        this.matricula = matricula;
+        this.senha = senha;
+        this.statusDeVoto = statusDeVoto;
+    }
+
 
 //Método para cadastro de eleitores no banco  de dados.
        public void cadastrar(){
@@ -219,9 +226,10 @@ public class Eleitor extends Pessoa{
                     String cpf = rs.getString("cpf");
                     String email = rs.getString("email"); 
                     String senha = rs.getString("senha");
+                    boolean statusVoto = rs.getBoolean("status_voto");
                     
                     // cria um objeto eleitor com os dados obtidos
-                    Eleitor eleitor = new Eleitor(nome,cpf,email,matricula,senha ); 
+                    Eleitor eleitor = new Eleitor(nome,cpf,email,matricula,senha,statusVoto); 
 
                     System.out.println("-------------------");
                     System.out.println(eleitor.toStringAdm());
@@ -255,8 +263,8 @@ public class Eleitor extends Pessoa{
                 String matricula = rs.getString("matricula");
                 String nome = rs.getString("nome"); 
                 String cpf = rs.getString("cpf");
-
-                Eleitor eleitor = new Eleitor(nome,cpf,email,matricula,senha ); 
+                boolean statusVoto = rs.getBoolean("status_voto");
+                Eleitor eleitor = new Eleitor(nome,cpf,email,matricula,senha,statusVoto ); 
 
                 return  eleitor;
             }
@@ -269,6 +277,52 @@ public class Eleitor extends Pessoa{
         return null;
     }
 
+    public void votar(String voto) {
+
+        setStatusDeVoto(true);
+
+        PreparedStatement pstm = null;
+        String query;
+        Connection connection = null;
+    
+        try {
+            connection = new Conexao().getConnection();
+            Candidato candVotado = Candidato.buscar(voto);
+    
+            if (candVotado != null) {
+                query = "UPDATE candidato SET total_votos = total_votos + 1 WHERE numero_eleicao = ?";
+                pstm = connection.prepareStatement(query);
+                pstm.setString(1, voto);
+                pstm.executeUpdate();
+            } else {
+                query = "UPDATE voto SET voto_nulo = voto_nulo + 1";
+                pstm = connection.prepareStatement(query);
+                pstm.executeUpdate();
+            }
+    
+            // Se a atualização anterior for bem-sucedida, atualize o status de voto do eleitor
+            query = "UPDATE eleitor SET status_voto = true WHERE matricula = ?";
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, getMatricula());
+            pstm.executeUpdate();
+    
+            System.out.println("Voto concluído");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão ou o PreparedStatement: " + e.getMessage());
+            }
+        }
+    }
+
 
 //Sessão de getters
     public String getSenha() {
@@ -279,18 +333,23 @@ public class Eleitor extends Pessoa{
         return matricula;
     }
 
-
-//Sessão de setters
     public boolean isStatusDeVoto() {
         return statusDeVoto;
     }
+//Sessão de setters
+
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
 
-//Exibição e formatação de dados.
+    public void setStatusDeVoto(boolean statusDeVoto) {
+        this.statusDeVoto = statusDeVoto;
+    }
+
+
+    //Exibição e formatação de dados.
     public String formatacaoVoto(){
         if(isStatusDeVoto()){
             return "Votou";

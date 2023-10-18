@@ -2,6 +2,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Candidato extends Pessoa {
     private String numeroDaEleicao;
@@ -227,6 +229,50 @@ public class Candidato extends Pessoa {
             System.out.println("Erro ao listar candidatos: " + e.getMessage());
         }
     }
+
+        public static List<String> gerarRelatorio() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<String> resultados = new ArrayList<>();
+
+        try {
+            connection = new Conexao().getConnection();
+            String sql = "SELECT 'Votos Brancos' AS tipo_voto, voto_branco AS total FROM voto " +
+                         "UNION ALL " +
+                         "SELECT 'Votos Nulos' AS tipo_voto, voto_nulo AS total FROM voto " +
+                         "UNION ALL " +
+                         "SELECT nome AS candidato, total_votos AS total FROM candidato";
+
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String tipoVoto = resultSet.getString("tipo_voto");
+                int total = resultSet.getInt("total");
+                resultados.add(tipoVoto + ", Total: " + total+"\n");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao executar a consulta SQL: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar recursos: " + e.getMessage());
+            }
+        }
+
+        return resultados;
+    }
+
 
 
     @Override

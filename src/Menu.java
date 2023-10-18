@@ -103,6 +103,13 @@ public class Menu {
     System.out.print("Digite o número referente a ação desejada -> "); 
 
     }
+
+    public static void relatório(){
+        System.out.println(" _________________________________");
+        System.out.println("|        Relatório dos votos      |" );
+        System.out.println("|_________________________________|");
+        System.out.println("\n---------------------------------------");
+    }
     
     
  }
