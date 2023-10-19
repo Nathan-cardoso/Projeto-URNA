@@ -296,6 +296,12 @@ public class Eleitor extends Pessoa {
                 pstm = connection.prepareStatement(query);
                 pstm.setString(1, voto);
                 pstm.executeUpdate();
+            }else if(voto.equals("00000")){
+                
+                // Voto em branco
+                query = "UPDATE voto SET voto_branco = voto_branco + 1";
+                pstm = connection.prepareStatement(query);
+                pstm.executeUpdate();
             }else {
                 // Voto nulo
                 query = "UPDATE voto SET voto_nulo = voto_nulo + 1";
@@ -303,12 +309,7 @@ public class Eleitor extends Pessoa {
                 pstm.executeUpdate();
             }
 
-            if (voto.equals("00000")) {
-                // Voto em branco
-                query = "UPDATE voto SET voto_branco = voto_branco + 1";
-                pstm = connection.prepareStatement(query);
-                pstm.executeUpdate();
-            }
+            
     
             // Se a atualização anterior for bem-sucedida, atualize o status de voto do eleitor
             query = "UPDATE eleitor SET status_voto = true WHERE matricula = ?";
