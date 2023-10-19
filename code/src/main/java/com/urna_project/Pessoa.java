@@ -1,3 +1,5 @@
+package com.urna_project;
+
 public class Pessoa {
     private String nome;
     private String email;
@@ -18,6 +20,7 @@ public class Pessoa {
     }
 
     public void setCpf(String cpf) {
+        
         this.cpf = cpf;
     }
 
@@ -36,5 +39,7 @@ public class Pessoa {
     public String toString() {
         return "Nome: " + nome + "\nCPF: " + cpf + "\nEmail: " + email;
     }
+
+
 
 }

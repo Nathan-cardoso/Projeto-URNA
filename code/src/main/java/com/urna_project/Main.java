@@ -1,3 +1,4 @@
+package com.urna_project;
 import java.util.Scanner;
 
 public class Main {

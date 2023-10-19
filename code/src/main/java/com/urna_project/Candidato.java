@@ -1,3 +1,5 @@
+package com.urna_project;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,16 +30,37 @@ public class Candidato extends Pessoa {
 
     public void cadastrar() {
         try {
+
+            //Verifica no banco de já existe CPF e Email passado no cadastro.
             Connection connection = new Conexao().getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT * FROM " +
+                            "candidato WHERE cpf = ? OR email = ?");
+
+            pstmt.setString(1, getCpf());
+            pstmt.setString(2, getEmail());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getString("cpf").equals(getCpf())) {
+                    System.out.println("Esse CPF já foi cadastrado");
+                    return;
+                }
+
+                if (rs.getString("email").equals(getEmail())) {
+                    System.out.println("Esse E-mail já foi cadastrado");
+                    return;
+                }
+            }
+
             String query = "INSERT INTO candidato (numero_eleicao, nome, cpf, email) VALUES (?,?,?,?)";
-            PreparedStatement pst = connection.prepareStatement(query);
+             pstmt = connection.prepareStatement(query);
 
-            pst.setString(1, this.getNumeroDaEleicao());
-            pst.setString(2, this.getNome());
-            pst.setString(3, this.getCpf());
-            pst.setString(4, this.getEmail());
+            pstmt.setString(1, this.getNumeroDaEleicao());
+            pstmt.setString(2, this.getNome());
+            pstmt.setString(3, this.getCpf());
+            pstmt.setString(4, this.getEmail());
 
-            int validacaoCadastro = pst.executeUpdate();
+            int validacaoCadastro = pstmt.executeUpdate();
 
             if (validacaoCadastro > 0) {
 
@@ -49,7 +72,7 @@ public class Candidato extends Pessoa {
 
             }
 
-            pst.close();
+            pstmt.close();
             connection.close();
 
         } catch (java.sql.SQLException e) {

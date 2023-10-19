@@ -1,3 +1,5 @@
+package com.urna_project;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +27,25 @@ public class Eleitor extends Pessoa {
     public void cadastrar() {
         try {
             Connection connection = new Conexao().getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT * FROM " +
+                            "eleitor WHERE cpf = ? OR email = ?");
+
+            pstmt.setString(1, getCpf());
+            pstmt.setString(2, getEmail());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getString("cpf").equals(getCpf())) {
+                    System.out.println("Esse CPF já foi cadastrado");
+                    return;
+                }
+
+                if (rs.getString("email").equals(getEmail())) {
+                    System.out.println("Esse E-mail já foi cadastrado");
+                    return;
+                }
+            }
+
             String query = "INSERT INTO eleitor (matricula, nome, cpf, email, senha) VALUES (?,?,?,?,?)";
             PreparedStatement pst = connection.prepareStatement(query);
 
@@ -48,6 +69,7 @@ public class Eleitor extends Pessoa {
 
             pst.close();
             connection.close();
+            rs.close();
 
         } catch (java.sql.SQLException e) {
 
@@ -66,10 +88,10 @@ public class Eleitor extends Pessoa {
     public static Eleitor buscar(String matricula) {
         PreparedStatement pstm = null;
         ResultSet rs = null;
-
+        Connection connection = null;
         try {
 
-            Connection connection = new Conexao().getConnection();
+            connection = new Conexao().getConnection();
             String query = "SELECT * FROM eleitor where matricula = ?";
             pstm = connection.prepareStatement(query);
             pstm.setString(1, matricula);
@@ -93,6 +115,21 @@ public class Eleitor extends Pessoa {
 
         } catch (java.sql.SQLException e) {
             System.out.println("Erro na busca do eleitor: " + e.getMessage());
+        } finally {
+            // Certifique-se de fechar todos os recursos no bloco finally.
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Lidar com exceções durante o fechamento dos recursos, se necessário.
+            }
         }
 
         return null;
@@ -279,39 +316,38 @@ public class Eleitor extends Pessoa {
         PreparedStatement pstm = null;
         String query;
         Connection connection = null;
-    
+
         try {
             connection = new Conexao().getConnection();
-    
+
             // Verificar se o candidato com o número de voto existe
             query = "SELECT numero_eleicao FROM candidato WHERE numero_eleicao = ?";
             pstm = connection.prepareStatement(query);
             pstm.setString(1, voto);
-    
+
             ResultSet rs = pstm.executeQuery();
-    
+
             if (rs.next()) {
                 // Candidato encontrado, atualize o número de votos do candidato
                 query = "UPDATE candidato SET total_votos = total_votos + 1 WHERE numero_eleicao = ?";
                 pstm = connection.prepareStatement(query);
                 pstm.setString(1, voto);
                 pstm.executeUpdate();
-            }else if(voto.equals("00000")){
-                
+            } else if (voto.equals("00000")) {
+
                 // Voto em branco
                 query = "UPDATE voto SET voto_branco = voto_branco + 1";
                 pstm = connection.prepareStatement(query);
                 pstm.executeUpdate();
-            }else {
+            } else {
                 // Voto nulo
                 query = "UPDATE voto SET voto_nulo = voto_nulo + 1";
                 pstm = connection.prepareStatement(query);
                 pstm.executeUpdate();
             }
 
-            
-    
-            // Se a atualização anterior for bem-sucedida, atualize o status de voto do eleitor
+            // Se a atualização anterior for bem-sucedida, atualize o status de voto do
+            // eleitor
             query = "UPDATE eleitor SET status_voto = true WHERE matricula = ?";
             pstm = connection.prepareStatement(query);
             pstm.setString(1, getMatricula());
@@ -320,8 +356,8 @@ public class Eleitor extends Pessoa {
             connection.close();
             pstm.close();
             rs.close();
-            
-            System.out.println("Voto concluído!"); 
+
+            System.out.println("Voto concluído!");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
