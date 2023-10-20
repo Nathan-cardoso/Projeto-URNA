@@ -94,6 +94,11 @@ public class Controle {
         System.out.println("Informe o nome do candidato: ");
         nome = input.nextLine();
 
+        if (Validacao.validarNome(nome) == false) {
+            System.out.println("O nome não pode conter números ou caracteres especiais. Reinicie o cadastro.");
+            return;
+        }
+
         System.out.println("Informe o cpf do candidato: ");
         cpf = input.nextLine();
 
@@ -132,6 +137,11 @@ public class Controle {
 
         System.out.println("Informe o nome do eleitor: ");
         nome = input.nextLine();
+
+        if (Validacao.validarNome(nome) == false) {
+            System.out.println("O nome não pode conter números ou caracteres especiais. Reinicie o cadastro.");
+            return;
+        }
 
         System.out.println("Informe o cpf do eleitor: ");
         cpf = input.nextLine();
@@ -189,6 +199,11 @@ public class Controle {
                 input.nextLine();
                 System.out.println("Informe o nome: ");
                 alteracao = input.nextLine();
+
+                if (Validacao.validarNome(alteracao) == false) {
+                    System.out.println("O nome não pode conter números ou caracteres especiais. Reinicie o cadastro.");
+                    break;
+                }
 
                 cand.editar(codigoEdicao, alteracao);
 
@@ -279,6 +294,11 @@ public class Controle {
 
                 System.out.println("Informe o nome: ");
                 alteracao = input.nextLine();
+
+                if (Validacao.validarNome(alteracao) == false) {
+                    System.out.println("O nome não pode conter números ou caracteres especiais. Reinicie o cadastro.");
+                    break;
+                }
 
                 eli.editar(codigoEdicaoEleitor, alteracao);
 
@@ -457,6 +477,12 @@ public class Controle {
                                 System.out.println("Informe o nome: ");
                                 alteracaoEleitor = input.nextLine();
 
+                                if (Validacao.validarNome(alteracaoEleitor) == false) {
+                                    System.out.println(
+                                            "O nome não pode conter números ou caracteres especiais. Reinicie o cadastro.");
+                                    break;
+                                }
+
                                 user.editar(codParaEdit, alteracaoEleitor);
 
                                 break; // Fim case 1 de edição eleitor
@@ -544,6 +570,11 @@ public class Controle {
 
         System.out.println("Informe seu nome: ");
         nome = input.nextLine();
+
+        if (Validacao.validarNome(nome) == false) {
+            System.out.println("O nome não pode conter números ou caracteres especiais. Reinicie o cadastro.");
+            return;
+        }
 
         System.out.println("Informe seu CPF: ");
         cpf = input.nextLine();

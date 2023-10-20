@@ -72,9 +72,6 @@ public class Candidato extends Pessoa {
 
             }
 
-            pstmt.close();
-            connection.close();
-
         } catch (java.sql.SQLException e) {
 
             System.out.println("Erro de conexão: " + e.getMessage());
@@ -171,9 +168,6 @@ public class Candidato extends Pessoa {
 
             }
 
-            pstm.close();
-            connection.close();
-
         } catch (java.sql.SQLException e) {
             System.out.println("Erro: " + e.getMessage());
         }
@@ -200,8 +194,7 @@ public class Candidato extends Pessoa {
                 System.out.println("------------------------------------------------");
             }
 
-            pstm.close();
-            connection.close();
+
         } catch (SQLException e) {
             System.out.println("Erro ao excluir candidato! erro: " + e.getMessage());
         }
@@ -236,8 +229,6 @@ public class Candidato extends Pessoa {
                 } while (rs.next());
             }
             // Fecha a concecxão com o Banco de dados.
-            pstmt.close();
-            connection.close();
 
         } catch (SQLException e) {
             // Em caso de erro, exibe essa mensagem
@@ -298,21 +289,7 @@ public class Candidato extends Pessoa {
             }
         } catch (SQLException e) {
             System.out.println("Erro ao executar a consulta SQL: " + e.getMessage());
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao fechar recursos: " + e.getMessage());
-            }
-        }
+        } 
 
         return resultados;
     }

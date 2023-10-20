@@ -50,4 +50,12 @@ public class Validacao {
         }
         return true;
     }
+
+    public static boolean validarNome(String nome) {
+        // Verifique se o nome contém apenas letras e espaços em branco
+        if (nome.matches("^[a-zA-Z\\s]*$") || nome.trim().isEmpty() || nome == null || nome.equals("") ) {
+            return false;
+        }
+        return true;
+    }
 }

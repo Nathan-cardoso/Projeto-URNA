@@ -67,10 +67,6 @@ public class Eleitor extends Pessoa {
 
             }
 
-            pst.close();
-            connection.close();
-            rs.close();
-
         } catch (java.sql.SQLException e) {
 
             System.out.println("Erro de conexão: " + e.getMessage());
@@ -115,23 +111,7 @@ public class Eleitor extends Pessoa {
 
         } catch (java.sql.SQLException e) {
             System.out.println("Erro na busca do eleitor: " + e.getMessage());
-        } finally {
-            // Certifique-se de fechar todos os recursos no bloco finally.
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace(); // Lidar com exceções durante o fechamento dos recursos, se necessário.
-            }
-        }
-
+        } 
         return null;
     }
 
@@ -197,9 +177,6 @@ public class Eleitor extends Pessoa {
 
             }
 
-            pstm.close();
-            connection.close();
-
         } catch (java.sql.SQLException e) {
             System.out.println("Erro: " + e.getMessage());
         }
@@ -231,9 +208,6 @@ public class Eleitor extends Pessoa {
                 System.out.println("Não foi encontrado eleitor com o código " + matricula);
                 System.out.println("------------------------------------------------");
             }
-
-            pstm.close();
-            connection.close();
 
         } catch (SQLException e) {
             System.out.println("Erro ao excluir eleitor! erro: " + e.getMessage());
@@ -271,9 +245,6 @@ public class Eleitor extends Pessoa {
                     System.out.println("-------------------");
                 } while (rs.next());
             }
-            // Fecha a concecxão com o Banco de dados.
-            pstmt.close();
-            connection.close();
 
         } catch (SQLException e) {
             // Em caso de erro, exibe essa mensagem
@@ -352,10 +323,6 @@ public class Eleitor extends Pessoa {
             pstm = connection.prepareStatement(query);
             pstm.setString(1, getMatricula());
             pstm.executeUpdate();
-
-            connection.close();
-            pstm.close();
-            rs.close();
 
             setStatusDeVoto(true);
 
