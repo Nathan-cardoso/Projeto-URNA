@@ -245,6 +245,35 @@ public class Candidato extends Pessoa {
         }
     }
 
+    public static boolean verificacaoCandidato(){
+        PreparedStatement pstm = null;
+        Connection connection = null;
+        ResultSet rs = null;
+        try {
+             connection = new Conexao().getConnection();
+             pstm = connection.prepareStatement("SELECT * FROM candidato");
+
+             rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }else{
+                pstm = connection.prepareStatement("UPDATE voto set voto_nulo = 0");
+                pstm.executeUpdate();
+
+                pstm = connection.prepareStatement("UPDATE voto set voto_branco = 0");
+                pstm.executeUpdate();
+
+                return false;
+            }
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
     public static List<String> gerarRelatorio() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

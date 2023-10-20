@@ -311,12 +311,12 @@ public class Eleitor extends Pessoa {
         return null;
     }
 
+
     public void votar(String voto) {
-        setStatusDeVoto(true);
         PreparedStatement pstm = null;
         String query;
         Connection connection = null;
-
+        ResultSet rs = null;
         try {
             connection = new Conexao().getConnection();
 
@@ -325,7 +325,7 @@ public class Eleitor extends Pessoa {
             pstm = connection.prepareStatement(query);
             pstm.setString(1, voto);
 
-            ResultSet rs = pstm.executeQuery();
+             rs = pstm.executeQuery();
 
             if (rs.next()) {
                 // Candidato encontrado, atualize o número de votos do candidato
@@ -356,6 +356,8 @@ public class Eleitor extends Pessoa {
             connection.close();
             pstm.close();
             rs.close();
+
+            setStatusDeVoto(true);
 
             System.out.println("Voto concluído!");
         } catch (SQLException e) {

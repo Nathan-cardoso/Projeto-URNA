@@ -200,8 +200,8 @@ public class Controle {
                 alteracao = input.nextLine();
 
                 if (!Validacao.validacaoCPF(alteracao)) {
-                    System.out.println("Reinicie o cadastro.");
-                    return;
+                    System.out.println("Não possível fazer essa alteração");
+                    break;
                 }
 
                 cand.editar(codigoEdicao, alteracao);
@@ -212,6 +212,11 @@ public class Controle {
                 input.nextLine();
                 System.out.println("Informe o novo E-mail: ");
                 alteracao = input.nextLine();
+
+                if (!Validacao.validacaoEmail(alteracao)) {
+                    System.out.println("Reinicie o cadastro");
+                    break;
+                }
 
                 cand.editar(codigoEdicao, alteracao);
 
@@ -224,7 +229,7 @@ public class Controle {
 
                 if (!Validacao.validarNumeroEleicao(alteracao)) {
                     System.out.println("Reinicie o cadastro...");
-                    return;
+                    break;
                 }
 
                 cand.editar(codigoEdicao, alteracao);
@@ -286,8 +291,8 @@ public class Controle {
                 alteracao = input.nextLine();
 
                 if (Validacao.validacaoCPF(alteracao) != true) {
-                    System.out.println("Reinicie o cadastro");
-                    return;
+                    System.out.println("Não é possível fazer essa alteração");
+                    break;
                 }
 
                 eli.editar(codigoEdicaoEleitor, alteracao);
@@ -298,8 +303,8 @@ public class Controle {
                 alteracao = input.nextLine();
 
                 if (!Validacao.validacaoEmail(alteracao)) {
-                    System.out.println("Reinicie o cadastro");
-                    return;
+                    System.out.println("Essa alteração não pode ser feita");
+                    break;
                 }
 
                 eli.editar(codigoEdicaoEleitor, alteracao);
@@ -390,7 +395,7 @@ public class Controle {
 
         if (user == null) {
 
-            System.out.println("email ou senha invalido!");
+            System.out.println("email e/ou senha errado!");
 
         } else {
 
@@ -406,14 +411,19 @@ public class Controle {
                     case 1:
                         input.nextLine();
 
-                        String voto;
+                        if (Candidato.verificacaoCandidato() == false) {
+                            System.out.println("----------------------------------------");
+                            System.out.println("\tNão é possível votar\nNão há candidatos cadastrados no momento");
+                            System.out.println("----------------------------------------");
+                            break;
+                        }
 
                         if (user.isStatusDeVoto() == true) {
                             System.out.println("Não é permitodo votar novamente");
                             break;
 
                         }
-
+                        String voto;
                         Menu.informes();
 
                         System.out.println("\t Digite seu voto abaixo ");
@@ -458,8 +468,8 @@ public class Controle {
                                 alteracaoEleitor = input.nextLine();
 
                                 if (!Validacao.validacaoCPF(alteracaoEleitor)) {
-                                    System.out.println("CPF inválido. Reinicie o cadastro.");
-                                    return;
+                                    System.out.println("Não é possível fazer essa edição");
+                                    break;
                                 }
 
                                 user.editar(codParaEdit, alteracaoEleitor);
@@ -473,7 +483,7 @@ public class Controle {
                                 alteracaoEleitor = input.nextLine();
 
                                 if (!Validacao.validacaoEmail(alteracaoEleitor)) {
-                                    System.out.println("Reinicie o cadastro");
+                                    System.out.println("Não é possível fazer essa edição");
                                     return;
                                 }
 
